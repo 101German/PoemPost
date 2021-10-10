@@ -1,13 +1,9 @@
-﻿using Entities.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using PoemPost.Data.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace PoemPost.Data
 {
     public class RepositoryContext:DbContext
     {
