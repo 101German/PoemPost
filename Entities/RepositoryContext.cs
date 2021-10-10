@@ -25,7 +25,7 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            //builder.Entity<BaseModel>().HasQueryFilter(f => EF.Property<bool>(f, "isDeleted") == false); 
+            
 
             builder.Entity<Author>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
             builder.Entity<Post>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
