@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Comment:BaseEntity
+    public class Comment : BaseEntity
     {
         public string Text { get; set; }
         public int AuthorId { get; set; }

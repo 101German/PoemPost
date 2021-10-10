@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Author:BaseEntity
+    public class Author : BaseEntity
     {
         public string Name { get; set; }
         public ICollection<Post> Posts { get; set; }
