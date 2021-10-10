@@ -14,8 +14,8 @@ namespace Entities.Models
         public int AuthorId { get; set; }
         public Author Author { get; set; }
 
-        public List<Comment> Comments { get; set; }
-        public List<Like> Likes { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Like> Likes { get; set; }
 
         public DateTime CreationDate { get; set; }
         public DateTime? LastUpdateDate { get; set; }
