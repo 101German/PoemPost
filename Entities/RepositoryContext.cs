@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PoemPost.Data.Extensions;
 using PoemPost.Data.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace PoemPost.Data
 {
-    public class RepositoryContext:DbContext
+    public class RepositoryContext : DbContext
     {
 
         public RepositoryContext(DbContextOptions options) : base(options)
@@ -21,18 +22,19 @@ namespace PoemPost.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
 
-            builder.Entity<Author>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
-            builder.Entity<Post>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
-            builder.Entity<Comment>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
-            builder.Entity<Like>().HasKey(l => new { l.AuthorId, l.PostId }); ;
+            builder.RegiesterSoftDeleteQueryFilter();
+            //builder.Entity<Author>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
+            //builder.Entity<Post>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
+            //builder.Entity<Comment>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
+            builder.Entity<Like>().HasKey(l => new { l.AuthorId, l.PostId }); 
 
             builder.Entity<Comment>().HasOne(c => c.Post).WithMany(p => p.Comments).HasForeignKey(c => c.PostId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Comment>().HasOne(c => c.Author).WithMany(a => a.Comments).HasForeignKey(c => c.AuthorId).OnDelete(DeleteBehavior.NoAction);
 
 
         }
+
 
         public override int SaveChanges()
         {
