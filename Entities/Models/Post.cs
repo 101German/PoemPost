@@ -18,7 +18,7 @@ namespace Entities.Models
         public List<Like> Likes { get; set; }
 
         public DateTime CreationDate { get; set; }
-        public DateTime? LastUpdationDate { get; set; }
+        public DateTime? LastUpdateDate { get; set; }
 
     }
 }
