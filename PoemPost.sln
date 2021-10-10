@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoemPost", "PoemPost\PoemPost.csproj", "{F5D6856D-6FDE-4EA2-A13D-1E7A2BA15B91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoemPost.Host", "PoemPost\PoemPost.Host.csproj", "{F5D6856D-6FDE-4EA2-A13D-1E7A2BA15B91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{10A6160F-C24A-49B5-ACEC-BEFDAA38FE20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoemPost.Data", "Entities\PoemPost.Data.csproj", "{10A6160F-C24A-49B5-ACEC-BEFDAA38FE20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
