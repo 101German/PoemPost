@@ -51,11 +51,11 @@ namespace Entities
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.CurrentValues["isDeleted"] = false;
+                        entry.CurrentValues["IsDeleted"] = false;
                         break;
                     case EntityState.Deleted:
                         entry.State = EntityState.Modified;
-                        entry.CurrentValues["isDeleted"] = true;
+                        entry.CurrentValues["IsDeleted"] = true;
                         break;
                 }
             }
