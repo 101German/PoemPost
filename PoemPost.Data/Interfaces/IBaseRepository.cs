@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PoemPost.Data.Interfaces
 {
-    public interface IBaseRepository<T> 
+    public interface IBaseRepository<T> where T : BaseEntity
     {
-        IQueryable<T> GetAll(bool trackChanges);
-        IQueryable<T> GetById(int id,bool trackChanges);
+        Task<List<T>> GetAllAsync(bool trackChanges);
+        Task<T> GetByIdAsync(int id, bool trackChanges);
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
