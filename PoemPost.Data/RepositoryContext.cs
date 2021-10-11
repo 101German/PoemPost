@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PoemPost.Data.Extensions;
 using PoemPost.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +27,10 @@ namespace PoemPost.Data
         {
             base.OnModelCreating(builder);
 
-            builder.RegiesterSoftDeleteQueryFilter();
+            var excludedTypes = new List<Type>();
+            excludedTypes.Add(typeof(Like));
+
+            builder.RegiesterSoftDeleteQueryFilter(excludedTypes);
             builder.Entity<Like>().HasKey(l => new { l.AuthorId, l.PostId }); 
 
             builder.Entity<Comment>().HasOne(c => c.Post).WithMany(p => p.Comments).HasForeignKey(c => c.PostId).OnDelete(DeleteBehavior.Cascade);
@@ -49,15 +56,19 @@ namespace PoemPost.Data
         {
             foreach (var entry in ChangeTracker.Entries())
             {
-                switch (entry.State)
+                if (entry.GetType().GetProperties().Any(p => p.Name == "IsDeleted"))
                 {
-                    case EntityState.Added:
-                        entry.CurrentValues["IsDeleted"] = false;
-                        break;
-                    case EntityState.Deleted:
-                        entry.State = EntityState.Modified;
-                        entry.CurrentValues["IsDeleted"] = true;
-                        break;
+                    switch (entry.State)
+                    {
+
+                        case EntityState.Added:
+                            entry.CurrentValues["IsDeleted"] = false;
+                            break;
+                        case EntityState.Deleted:
+                            entry.State = EntityState.Modified;
+                            entry.CurrentValues["IsDeleted"] = true;
+                            break;
+                    }
                 }
             }
         }
