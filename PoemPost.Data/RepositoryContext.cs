@@ -24,9 +24,6 @@ namespace PoemPost.Data
             base.OnModelCreating(builder);
 
             builder.RegiesterSoftDeleteQueryFilter();
-            //builder.Entity<Author>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
-            //builder.Entity<Post>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
-            //builder.Entity<Comment>().HasQueryFilter(f => EF.Property<bool>(f, "IsDeleted") == false);
             builder.Entity<Like>().HasKey(l => new { l.AuthorId, l.PostId }); 
 
             builder.Entity<Comment>().HasOne(c => c.Post).WithMany(p => p.Comments).HasForeignKey(c => c.PostId).OnDelete(DeleteBehavior.Cascade);
