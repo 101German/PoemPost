@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PoemPost.Data.Repositories
 {
-    public class LikeRepository:ILikeRepository
+    public class LikeRepository : ILikeRepository
     {
         private RepositoryContext _context;
         public LikeRepository(RepositoryContext RepositoryContext)
@@ -19,7 +19,7 @@ namespace PoemPost.Data.Repositories
 
         public bool AddLike(Like likeEntity)
         {
-            var likeExist = _context.Likes.Any(l => l.PostId ==likeEntity.PostId&&l.AuthorId==likeEntity.AuthorId);
+            var likeExist = _context.Likes.Any(l => l.PostId == likeEntity.PostId && l.AuthorId == likeEntity.AuthorId);
             if (!likeExist)
             {
                 _context.Likes.Add(likeEntity);
