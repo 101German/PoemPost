@@ -20,7 +20,7 @@ namespace PoemPost.Data.Repositories
         public bool AddLike(Like likeEntity)
         {
             var likeExist = _context.Likes.Any(l => l.PostId ==likeEntity.PostId&&l.AuthorId==likeEntity.AuthorId);
-            if (likeExist)
+            if (!likeExist)
             {
                 _context.Likes.Add(likeEntity);
                 return true;
