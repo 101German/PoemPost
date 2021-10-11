@@ -10,7 +10,7 @@ namespace PoemPost.Data.Repositories
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T:BaseEntity
     {
-        protected RepositoryContext RepositoryContext;
+        protected readonly RepositoryContext RepositoryContext;
 
         public BaseRepository(RepositoryContext RepositoryContext)
         {
@@ -19,13 +19,13 @@ namespace PoemPost.Data.Repositories
 
         public void Delete(T entity) => RepositoryContext.Set<T>().Remove(entity);
 
-        public IQueryable<T> GetAll(bool trackChanges) => !trackChanges ?
-            RepositoryContext.Set<T>().AsNoTracking()
-            : RepositoryContext.Set<T>();
+        public async Task<List<T>> GetAllAsync(bool trackChanges) => !trackChanges ?
+        await RepositoryContext.Set<T>().AsNoTracking().ToListAsync():
+        await RepositoryContext.Set<T>().ToListAsync();
 
-        public IQueryable<T> GetById(int id,bool trackChanges) => !trackChanges ?
-            RepositoryContext.Set<T>().Where(e => e.Id == id).AsNoTracking()
-            : RepositoryContext.Set<T>().Where(e => e.Id == id);
+        public async Task<T> GetByIdAsync(int id,bool trackChanges) => !trackChanges ?
+              await RepositoryContext.Set<T>().Where(e => e.Id == id).AsNoTracking().FirstOrDefaultAsync()
+            : await RepositoryContext.Set<T>().Where(e => e.Id == id).AsNoTracking().FirstOrDefaultAsync();
 
         public void Insert(T entity) => RepositoryContext.Set<T>().Add(entity);
 
