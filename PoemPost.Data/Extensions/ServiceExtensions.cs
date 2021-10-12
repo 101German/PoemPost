@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PoemPost.Data.Interfaces;
+using PoemPost.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +40,15 @@ namespace PoemPost.Data.Extensions
 
                 modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda); 
             }
+        }
+
+        public static void ConfigureRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
         }
 
     }

@@ -23,6 +23,7 @@ namespace PoemPost.Host
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup));
+            services.ConfigureRepositories();
             services.ConfigureCors();
             services.ConfigureSqlContext(Configuration);
             services.AddControllers();
