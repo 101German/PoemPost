@@ -44,11 +44,14 @@ namespace PoemPost.Data.Extensions
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IAuthorRepository, AuthorRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<ILikeRepository, LikeRepository>();
-            services.AddScoped<ILikeRepository, LikeRepository>();
+            services.Scan(scan => scan.FromCallingAssembly()
+            .AddClasses(classes=>classes.AssignableTo(typeof(IBaseRepository<>))).AsImplementedInterfaces().WithScopedLifetime());
+
+            //services.AddScoped<IAuthorRepository, AuthorRepository>();
+            //services.AddScoped<ICommentRepository, CommentRepository>();
+            //services.AddScoped<IPostRepository, PostRepository>();
+            //services.AddScoped<ILikeRepository, LikeRepository>();
+            //services.AddScoped<ILikeRepository, LikeRepository>();
         }
 
     }
