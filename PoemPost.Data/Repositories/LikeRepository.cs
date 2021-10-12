@@ -12,27 +12,17 @@ namespace PoemPost.Data.Repositories
     public class LikeRepository : ILikeRepository
     {
         private RepositoryContext _context;
+
         public LikeRepository(RepositoryContext RepositoryContext)
         {
             _context = RepositoryContext;
         }
 
-        public bool AddLike(Like likeEntity)
-        {
-            var likeExist = _context.Likes.Any(l => l.PostId == likeEntity.PostId && l.AuthorId == likeEntity.AuthorId);
-            if (!likeExist)
-            {
-                _context.Likes.Add(likeEntity);
-                return true;
-            }
+        public void Add(Like likeEntity)=> _context.Likes.Add(likeEntity);
 
-            _context.Remove(likeEntity);
-            return false;
-        }
+        public async Task<int> GetCountByPostIdAsync(int id)=> await _context.Likes.CountAsync(p => p.PostId == id);
 
-        public async Task<int> GetLikesCountByPostIdAsync(int id)
-        {
-            return await _context.Posts.Where(p => p.Id == id).Include(p => p.Likes).CountAsync();
-        }
+        public void Remove(Like like) => _context.Likes.Remove(like);
+       
     }
 }
