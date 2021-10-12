@@ -5,8 +5,8 @@ namespace PoemPost.Data.Interfaces
 {
     public interface ILikeRepository 
     { 
-        bool AddLike(Like like);
-        Task<int> GetLikesCountByPostIdAsync(int id);
-
+        void Add(Like like);
+        Task<int> GetCountByPostIdAsync(int id);
+        void Remove(Like like);
     }
 }
