@@ -47,11 +47,6 @@ namespace PoemPost.Data.Extensions
             services.Scan(scan => scan.FromCallingAssembly()
             .AddClasses(classes=>classes.AssignableTo(typeof(IBaseRepository<>))).AsImplementedInterfaces().WithScopedLifetime());
 
-            //services.AddScoped<IAuthorRepository, AuthorRepository>();
-            //services.AddScoped<ICommentRepository, CommentRepository>();
-            //services.AddScoped<IPostRepository, PostRepository>();
-            //services.AddScoped<ILikeRepository, LikeRepository>();
-            //services.AddScoped<ILikeRepository, LikeRepository>();
         }
 
     }
