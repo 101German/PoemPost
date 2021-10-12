@@ -20,12 +20,12 @@ namespace PoemPost.Data.Repositories
         public void Delete(T entity) => RepositoryContext.Set<T>().Remove(entity);
 
         public async Task<List<T>> GetAllAsync(bool trackChanges) => !trackChanges ?
-        await RepositoryContext.Set<T>().AsNoTracking().ToListAsync() :
-        await RepositoryContext.Set<T>().ToListAsync();
+              await RepositoryContext.Set<T>().AsNoTracking().ToListAsync():
+              await RepositoryContext.Set<T>().ToListAsync();
 
         public async Task<T> GetByIdAsync(int id, bool trackChanges) => !trackChanges ?
-              await RepositoryContext.Set<T>().Where(e => e.Id == id).AsNoTracking().FirstOrDefaultAsync()
-            : await RepositoryContext.Set<T>().Where(e => e.Id == id).AsNoTracking().FirstOrDefaultAsync();
+              await RepositoryContext.Set<T>().Where(e => e.Id == id).AsNoTracking().FirstOrDefaultAsync():
+              await RepositoryContext.Set<T>().Where(e => e.Id == id).AsNoTracking().FirstOrDefaultAsync();
 
         public void Insert(T entity) => RepositoryContext.Set<T>().Add(entity);
 
