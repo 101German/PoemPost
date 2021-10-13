@@ -11,9 +11,9 @@ using System.Reflection;
 
 namespace PoemPost.Data.Extensions
 {
-    enum ISoftDeletable 
+    enum ISoftDeletable
     {
-    IsDeleted
+        IsDeleted
     }
 
     public static class ServiceExtensions
@@ -22,11 +22,11 @@ namespace PoemPost.Data.Extensions
          services.AddDbContext<RepositoryContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")
              , b => b.MigrationsAssembly("PoemPost.Host")));
 
-        public static void RegiesterSoftDeleteQueryFilter(this ModelBuilder modelBuilder,ICollection<Type> excludedTypes = null)
+        public static void RegiesterSoftDeleteQueryFilter(this ModelBuilder modelBuilder, ICollection<Type> excludedTypes = null)
         {
             IEnumerable<IMutableEntityType> entityTypes = modelBuilder.Model.GetEntityTypes().Where(t => !(excludedTypes ?? new List<Type>()).Contains(t.ClrType)).ToList();
 
-            foreach(IMutableEntityType entityType in entityTypes)
+            foreach (IMutableEntityType entityType in entityTypes)
             {
                 ParameterExpression parameter = Expression.Parameter(entityType.ClrType);
 
@@ -37,14 +37,14 @@ namespace PoemPost.Data.Extensions
 
                 LambdaExpression lambda = Expression.Lambda(compareExpression, parameter);
 
-                modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda); 
+                modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
             }
         }
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.Scan(scan => scan.FromCallingAssembly()
-            .AddClasses(classes=>classes.AssignableTo(typeof(IBaseRepository<>))).AsImplementedInterfaces().WithScopedLifetime());
+            .AddClasses(classes => classes.AssignableTo(typeof(IBaseRepository<>))).AsImplementedInterfaces().WithScopedLifetime());
 
         }
 
