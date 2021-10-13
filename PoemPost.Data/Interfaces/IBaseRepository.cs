@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PoemPost.Data.Interfaces
@@ -10,6 +7,7 @@ namespace PoemPost.Data.Interfaces
     {
         Task<List<T>> GetAllAsync(bool trackChanges);
         Task<T> GetByIdAsync(int id, bool trackChanges);
+        Task SaveAsync();
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
