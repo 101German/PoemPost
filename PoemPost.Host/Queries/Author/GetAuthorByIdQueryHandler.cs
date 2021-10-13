@@ -12,9 +12,10 @@ namespace PoemPost.Host.Queries
         private readonly AuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public GetAuthorByIdQueryHandler(AuthorRepository authorRepository)
+        public GetAuthorByIdQueryHandler(AuthorRepository authorRepository,IMapper mapper)
         {
             _authorRepository = authorRepository;
+            _mapper = mapper;
         }
         public async Task<AuthorDTO> Handle(GetAuthorByIdQuery request, CancellationToken cancellationToken)
         {
