@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-
 namespace PoemPost.Host.Extensions
 {
     public static class ServiceExtensions
