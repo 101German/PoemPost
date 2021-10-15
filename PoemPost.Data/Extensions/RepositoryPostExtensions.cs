@@ -20,7 +20,8 @@ namespace PoemPost.Data.Extensions
             
         }
 
-        public static IQueryable<Post> FilterByDates(this IQueryable<Post> posts, DateTime from, DateTime to) => posts.Where(p => p.CreationDate == from || p.CreationDate == to);
+        public static IQueryable<Post> FilterByDates(this IQueryable<Post> posts, DateTime startDate, DateTime finalDate) 
+            => posts.Where(p => p.CreationDate == startDate || p.CreationDate == finalDate);
 
         public static IQueryable<Post> Search(this IQueryable<Post> posts, string searchTerm)
         {
@@ -29,7 +30,8 @@ namespace PoemPost.Data.Extensions
                 return posts;
             }
 
-            return  posts.Where(p => p.Title == searchTerm || p.PoemText == searchTerm); 
+            return posts.Where(p=>p.Title.Contains(searchTerm)||p.PoemText.Contains(searchTerm));
+
         }
 
         public static IQueryable<Post> Sort(this IQueryable<Post> posts,string orderByQueryString)
