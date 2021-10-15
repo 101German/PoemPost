@@ -24,8 +24,7 @@ namespace PoemPost.Host.Commands.Create
             var commentEntity = _mapper.Map<Comment>(request.Comment);
 
             commentEntity.CreationDate = DateTime.Now;
-            commentEntity.AuthorId = request.AuthorId;
-            commentEntity.PostId = request.PostId;
+            
 
             _commentRepository.Insert(commentEntity);
             await _commentRepository.SaveAsync();

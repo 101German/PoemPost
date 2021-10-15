@@ -7,6 +7,6 @@ namespace PoemPost.Host.Commands
     {
         public int Id { get; set; }
 
-        public AuthorForUpdateDTO Author;
+        public AuthorForUpdateDTO Author { get; set; }
     }
 }

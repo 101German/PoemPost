@@ -22,7 +22,9 @@ namespace PoemPost.Host.Commands
         public async Task<AuthorDTO> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
         {
             var authorEntity = _mapper.Map<Author>(request.Author);
+
             _authorRepository.Insert(authorEntity);
+
             await _authorRepository.SaveAsync();
             return _mapper.Map<AuthorDTO>(authorEntity);
         }

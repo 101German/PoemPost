@@ -23,7 +23,6 @@ namespace PoemPost.Host.Commands
 
             _authorRepository.Delete(authorEntity);
             await _authorRepository.SaveAsync();
-
             return true;
 
         }
