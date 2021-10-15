@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using PoemPost.Data.Repositories;
+using PoemPost.Data.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,10 +8,10 @@ namespace PoemPost.Host.Commands
 {
     public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand, bool>
     {
-        private readonly AuthorRepository _authorRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public UpdateAuthorCommandHandler(AuthorRepository authorRepository, IMapper mapper)
+        public UpdateAuthorCommandHandler(IAuthorRepository authorRepository, IMapper mapper)
         {
             _authorRepository = authorRepository;
             _mapper = mapper;

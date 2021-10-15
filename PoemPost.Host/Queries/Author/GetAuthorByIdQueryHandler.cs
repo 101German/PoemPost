@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using PoemPost.Data.DataTransferObjects;
-using PoemPost.Data.Repositories;
+using PoemPost.Data.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,10 +9,10 @@ namespace PoemPost.Host.Queries
 {
     public class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQuery, AuthorDTO>
     {
-        private readonly AuthorRepository _authorRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public GetAuthorByIdQueryHandler(AuthorRepository authorRepository,IMapper mapper)
+        public GetAuthorByIdQueryHandler(IAuthorRepository authorRepository,IMapper mapper)
         {
             _authorRepository = authorRepository;
             _mapper = mapper;

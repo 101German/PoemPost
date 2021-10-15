@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PoemPost.Data.Interfaces;
+using PoemPost.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,7 @@ namespace PoemPost.Data.Extensions
     public static class ServiceExtensions
     {
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
-         services.AddDbContext<RepositoryContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")
-             , b => b.MigrationsAssembly("PoemPost.Host")));
+         services.AddDbContext<RepositoryContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b => b.MigrationsAssembly("PoemPost.Host")));
 
         public static void RegiesterSoftDeleteQueryFilter(this ModelBuilder modelBuilder, ICollection<Type> excludedTypes = null)
         {
@@ -41,10 +41,13 @@ namespace PoemPost.Data.Extensions
             }
         }
 
+     
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.Scan(scan => scan.FromCallingAssembly()
             .AddClasses(classes => classes.AssignableTo(typeof(IBaseRepository<>))).AsImplementedInterfaces().WithScopedLifetime());
+            services.AddScoped<ILikeRepository, LikeRepository>();
+       
 
         }
 
