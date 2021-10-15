@@ -3,10 +3,9 @@ namespace PoemPost.Data.RequestFeauters
 {
     public class RequestParameters
     {
-        private const int maxPageSize = 50;
+        private const int MaxPageSize = 50;
         public int PageNumber { get; set; } = 1;
 
-        private int _pageSize = 10;
         public int PageSize
         {
             get
@@ -15,9 +14,11 @@ namespace PoemPost.Data.RequestFeauters
             }
             set
             {
-                _pageSize = (value > maxPageSize) ? maxPageSize : value;
+                _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
             }
         }
         public string OrderBy { get; set; }
+
+        private int _pageSize = 10;
     }
 }
