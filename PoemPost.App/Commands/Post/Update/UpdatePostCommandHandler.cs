@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
 using PoemPost.Data.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;

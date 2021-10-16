@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
 using PoemPost.App.Queries.Post;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PoemPost.App.Validators.Queries.Post
 {
