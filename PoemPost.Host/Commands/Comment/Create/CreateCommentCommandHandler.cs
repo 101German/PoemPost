@@ -23,9 +23,6 @@ namespace PoemPost.Host.Commands.Create
         {
             var commentEntity = _mapper.Map<Comment>(request.Comment);
 
-            commentEntity.CreationDate = DateTime.Now;
-            
-
             _commentRepository.Insert(commentEntity);
             await _commentRepository.SaveAsync();
 

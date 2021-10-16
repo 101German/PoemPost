@@ -26,7 +26,7 @@ namespace PoemPost.Host.Commands.Update
             }
 
             _mapper.Map(request.Post, postEntity);
-            postEntity.LastUpdateDate = DateTime.Now;
+           
 
             await _postRepository.SaveAsync();
 

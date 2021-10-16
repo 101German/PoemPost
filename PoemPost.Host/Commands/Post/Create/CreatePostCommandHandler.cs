@@ -22,8 +22,6 @@ namespace PoemPost.Host.Commands
         public async Task<PostDTO> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
             var postEntity = _mapper.Map<Post>(request.Post);
-            postEntity.CreationDate = DateTime.Now;
-            postEntity.AuthorId = request.AuthorId;
 
             _postRepository.Insert(postEntity);
             await _postRepository.SaveAsync();
