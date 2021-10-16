@@ -28,6 +28,7 @@ namespace PoemPost.Host.Commands.Like.Create
             }
 
             _likeRepository.Remove(like);
+            await _likeRepository.SaveAsync();
             return false;
         }
     }
