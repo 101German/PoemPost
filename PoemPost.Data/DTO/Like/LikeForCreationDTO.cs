@@ -1,4 +1,4 @@
-﻿namespace PoemPost.Data.DataTransferObjects.Like
+﻿namespace PoemPost.Data.DTO.Like
 {
     public class LikeForCreationDTO
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PoemPost.Data.DataTransferObjects
+namespace PoemPost.Data.DTO
 {
     public class CommentDTO
     {

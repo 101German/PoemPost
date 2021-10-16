@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PoemPost.Data.DataTransferObjects.Like;
+using PoemPost.Data.DTO.Like;
 
 namespace PoemPost.Host.Commands.Like.Create
 {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PoemPost.Data.DataTransferObjects;
+using PoemPost.Data.DTO;
 using PoemPost.Data.Models;
 
 namespace PoemPost.Data.Mapping

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PoemPost.Data.DataTransferObjects;
+using PoemPost.Data.DTO;
 using System.Collections.Generic;
 
 namespace PoemPost.Host.Queries

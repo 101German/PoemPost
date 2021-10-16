@@ -1,4 +1,4 @@
-﻿namespace PoemPost.Data.DataTransferObjects
+﻿namespace PoemPost.Data.DTO
 {
     public class PostForUpdateDTO
     {

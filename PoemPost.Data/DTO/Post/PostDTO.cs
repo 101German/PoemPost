@@ -1,7 +1,7 @@
 ﻿using PoemPost.Data.Models;
 using System.Collections.Generic;
 
-namespace PoemPost.Data.DataTransferObjects
+namespace PoemPost.Data.DTO
 {
     public class PostDTO
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using MediatR;
-using PoemPost.Data.DataTransferObjects;
+using PoemPost.Data.DTO;
 using PoemPost.Data.Interfaces;
 using PoemPost.Data.Models;
 using System.Threading;

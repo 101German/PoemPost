@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PoemPost.Data.DataTransferObjects.Like;
+using PoemPost.Data.DTO.Like;
 using PoemPost.Data.Models;
 using System;
 using System.Collections.Generic;

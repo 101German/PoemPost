@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using PoemPost.Data.DataTransferObjects;
+using PoemPost.Data.DTO;
 using PoemPost.Data.Interfaces;
 using PoemPost.Data.Models;
 using System;
