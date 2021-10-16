@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PoemPost.Data.Interfaces;
+using PoemPost.Data.Mapping;
 using PoemPost.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -49,6 +51,20 @@ namespace PoemPost.Data.Extensions
             services.AddScoped<ILikeRepository, LikeRepository>();
        
 
+        }
+
+        public static void ConfigureAutoMapper(this IServiceCollection services)
+        {
+            var mapConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AuthorProfile());
+                mc.AddProfile(new PostProfile());
+                mc.AddProfile(new LikeProfile());
+                mc.AddProfile(new CommentProfile());
+            });
+
+            IMapper mapper = mapConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
     }

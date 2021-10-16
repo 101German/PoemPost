@@ -23,9 +23,8 @@ namespace PoemPost.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
-            services.AddAutoMapper(typeof(Startup));
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly) ;
+            services.ConfigureAutoMapper();
+            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
             services.ConfigureRepositories();
             services.ConfigureCors();
             services.ConfigureSqlContext(Configuration);
