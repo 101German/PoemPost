@@ -25,6 +25,7 @@ namespace PoemPost.Host
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureAutoMapper();
+            services.ConfigureValidators();
             services.ConfigureMediatR();
             services.ConfigureRepositories();
             services.ConfigureCors();
