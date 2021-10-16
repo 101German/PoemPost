@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PoemPost.App.Extensions;
 using PoemPost.Data.Extensions;
 using PoemPost.Host.Extensions;
 using System.Reflection;
@@ -24,7 +25,7 @@ namespace PoemPost.Host
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureAutoMapper();
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
+            services.ConfigureMediatR();
             services.ConfigureRepositories();
             services.ConfigureCors();
             services.ConfigureSqlContext(Configuration);

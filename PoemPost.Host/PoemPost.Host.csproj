@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PoemPost.App\PoemPost.App.csproj" />
     <ProjectReference Include="..\PoemPost.Data\PoemPost.Data.csproj" />
   </ItemGroup>
 
