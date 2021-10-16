@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PoemPost.App.Queries.Post
 {
-    public class GetFilteringPostsHandle : IRequestHandler<GetFilteringPosts, ICollection<PostDTO>>
+    public class GetFilteringPostsHandle : IRequestHandler<GetFilteringPostsQuery, ICollection<PostDTO>>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace PoemPost.App.Queries.Post
             _postRepository = postRepository;
             _mapper = mapper;
         }
-        public async Task<ICollection<PostDTO>> Handle(GetFilteringPosts request, CancellationToken cancellationToken)
+        public async Task<ICollection<PostDTO>> Handle(GetFilteringPostsQuery request, CancellationToken cancellationToken)
         {
             var postsEntities =await _postRepository.GetWithFiltersAsync(request.PostParameters, request.TrackChanges);
             return _mapper.Map<ICollection<PostDTO>>(postsEntities);
