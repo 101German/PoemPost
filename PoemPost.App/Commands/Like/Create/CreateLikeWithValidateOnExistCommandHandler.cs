@@ -19,10 +19,10 @@ namespace PoemPost.App.Commands.Like.Create
         public async Task<bool> Handle(CreateLikeWithValidateOnExistCommand request, CancellationToken cancellationToken)
         {
             var like = await _likeRepository.GetAsync(request.Like.PostId, request.Like.AuthorId);
+
             if (like == null)
             {
-                _mapper.Map(request.Like, like);
-                _likeRepository.Add(like);
+                _likeRepository.Add(_mapper.Map<Data.Models.Like>(request.Like));
                 await _likeRepository.SaveAsync();
                 return true;
             }

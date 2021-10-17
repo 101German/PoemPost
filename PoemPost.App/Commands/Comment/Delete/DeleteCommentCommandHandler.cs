@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PoemPost.App.Commands.Delete
 {
-    public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand, bool>
+    public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
     {
         private readonly ICommentRepository _commentRepository;
 
@@ -13,19 +13,14 @@ namespace PoemPost.App.Commands.Delete
         {
             _commentRepository = commentRepository;
         }
-        public async Task<bool> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
             var commentEntity = await _commentRepository.GetByIdAsync(request.Id, trackChanges: true);
-
-            if (commentEntity == null)
-            {
-                return false;
-            }
 
             _commentRepository.Delete(commentEntity);
             await _commentRepository.SaveAsync();
 
-            return true;
+            return Unit.Value;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PoemPost.App.Commands.Update
 {
-    public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand, bool>
+    public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
@@ -16,20 +16,14 @@ namespace PoemPost.App.Commands.Update
             _postRepository = postRepository;
             _mapper = mapper;
         }
-        public async Task<bool> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
         {
             var postEntity = await _postRepository.GetByIdAsync(request.Id, trackChanges: true);
-            if (postEntity == null)
-            {
-                return false;
-            }
 
             _mapper.Map(request.Post, postEntity);
-           
-
             await _postRepository.SaveAsync();
 
-            return true;
+            return Unit.Value;
         }
     }
 }

@@ -5,25 +5,21 @@ using System.Threading.Tasks;
 
 namespace PoemPost.App.Commands
 {
-    public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommand, bool>
+    public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommand>
     {
         private readonly IAuthorRepository _authorRepository;
         public DeleteAuthorCommandHandler(IAuthorRepository authorRepository)
         {
             _authorRepository = authorRepository;
         }
-        public async Task<bool> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
         {
             var authorEntity = await _authorRepository.GetByIdAsync(request.Id, trackChanges: true);
 
-            if (authorEntity == null)
-            {
-                return false;
-            }
-
             _authorRepository.Delete(authorEntity);
             await _authorRepository.SaveAsync();
-            return true;
+
+            return Unit.Value;
 
         }
     }

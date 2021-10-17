@@ -2,7 +2,7 @@
 
 namespace PoemPost.App.Commands
 {
-    public class DeleteAuthorCommand : IRequest<bool>
+    public class DeleteAuthorCommand : IRequest
     {
         public int Id { get; set; }
     }
