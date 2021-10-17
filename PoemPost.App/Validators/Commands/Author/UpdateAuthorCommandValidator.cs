@@ -16,7 +16,8 @@ namespace PoemPost.App.Validators
             RuleFor(a => a.Id).MustAsync(ValidateAuthorOnExist).WithMessage("This author does not exist");
         }
 
-        private async Task<bool> ValidateAuthorOnExist(int id, CancellationToken ct) => await _authorRepository.GetByIdAsync(id, trackChanges: true) != null;
+        private async Task<bool> ValidateAuthorOnExist(int id, CancellationToken ct) => await _authorRepository
+                                                                                             .GetByIdAsync(id, trackChanges: true) != null;
 
     }
 }

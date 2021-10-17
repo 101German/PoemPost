@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using PoemPost.App.Queries.Post;
+using PoemPost.App.Queries;
 
 namespace PoemPost.App.Validators.Queries.Post
 {
