@@ -24,7 +24,7 @@ namespace PoemPost.Data.Repositories
                                                              RepositoryContext.Posts.Include(p => p.Author).Include(p => p.Comments);
 
             var posts = await postsEntities.FilterByAuthors(postParameters.Authors)
-                                           .FilterByDates(postParameters.ToDateTime, postParameters.FromDateTime)
+                                           .FilterByDates(postParameters.FromDateTime, postParameters.ToDateTime)
                                            .Search(postParameters.SearchTerm)
                                            .Sort(postParameters.OrderBy)
                                            .ToListAsync();
