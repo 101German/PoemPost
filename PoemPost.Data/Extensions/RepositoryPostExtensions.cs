@@ -21,7 +21,7 @@ namespace PoemPost.Data.Extensions
         }
 
         public static IQueryable<Post> FilterByDates(this IQueryable<Post> posts, DateTime startDate, DateTime finalDate) 
-            => posts.Where(p => p.CreationDate == startDate || p.CreationDate == finalDate);
+            => posts.Where(p => p.CreationDate >= startDate && p.CreationDate <= finalDate);
 
         public static IQueryable<Post> Search(this IQueryable<Post> posts, string searchTerm)
         {
