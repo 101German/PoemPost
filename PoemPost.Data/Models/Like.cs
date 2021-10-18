@@ -6,10 +6,10 @@ namespace PoemPost.Data.Models
     {
         [Key]
         public int AuthorId { get; set; }
-        public Author Author;
+        public virtual Author Author { get; set; }
 
         [Key]
         public int PostId { get; set; }
-        public Post Post { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

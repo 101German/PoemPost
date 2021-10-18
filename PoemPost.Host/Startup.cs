@@ -5,8 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PoemPost.App.Extensions;
 using PoemPost.Data.Extensions;
 using PoemPost.Host.Extensions;
+using System.Reflection;
 
 namespace PoemPost.Host
 {
@@ -22,7 +24,9 @@ namespace PoemPost.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup));
+            services.ConfigureAutoMapper();
+            services.ConfigureValidators();
+            services.ConfigureMediatR();
             services.ConfigureRepositories();
             services.ConfigureCors();
             services.ConfigureSqlContext(Configuration);
