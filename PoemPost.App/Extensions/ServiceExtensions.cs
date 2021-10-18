@@ -12,6 +12,7 @@ namespace PoemPost.App.Extensions
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
         }
+
         public static void ConfigureValidators(this IServiceCollection services)
         {
             services               
