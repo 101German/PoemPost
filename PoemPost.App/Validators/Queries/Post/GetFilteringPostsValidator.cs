@@ -7,7 +7,9 @@ namespace PoemPost.App.Validators.Queries.Post
     {
         public GetFilteringPostsValidator()
         {
-            RuleFor(p => p.PostParameters).NotNull().WithMessage("Post parameters is null");
+            RuleFor(p => p.PostParameters)
+                .NotNull()
+                .WithMessage("Post parameters is null");
         }
         
     }

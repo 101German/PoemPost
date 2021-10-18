@@ -7,7 +7,9 @@ namespace PoemPost.App.Validators
     {
         public CreateAuthorCommandValidator()
         {
-            RuleFor(a => a.Author).NotNull().WithMessage("Parameter Author is null");
+            RuleFor(a => a.Author)
+                .NotNull()
+                .WithMessage("Parameter Author is null");
         }
     }
 }

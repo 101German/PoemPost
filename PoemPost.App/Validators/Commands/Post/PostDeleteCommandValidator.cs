@@ -17,6 +17,7 @@ namespace PoemPost.App.Validators.Post
             RuleFor(p => p.Id).MustAsync(ValidatePostOnExist).WithMessage("This post does not exist");
         }
 
-        private async Task<bool> ValidatePostOnExist(int id,CancellationToken ct) => await _postRepository.GetByIdAsync(id, trackChanges: true) != null;
+        private async Task<bool> ValidatePostOnExist(int id,CancellationToken ct) =>
+            await _postRepository.GetByIdAsync(id, trackChanges: true) != null;
     }
 }

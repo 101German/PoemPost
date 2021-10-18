@@ -14,10 +14,14 @@ namespace PoemPost.App.Validators.Comment
         {
             _commentRepository = commentRepository;
 
-            RuleFor(c => c.Id).MustAsync(ValidateCommentOnExist).WithMessage("This comment does not exist");
+            RuleFor(c => c.Id)
+                .MustAsync(ValidateCommentOnExist)
+                .WithMessage("This comment does not exist");
         }
 
-        private async Task<bool> ValidateCommentOnExist(int id, CancellationToken ct) => await _commentRepository.GetByIdAsync(id, trackChanges: true) != null;
+        private async Task<bool> ValidateCommentOnExist(int id, CancellationToken ct) => 
+            await _commentRepository
+            .GetByIdAsync(id, trackChanges: true) != null;
 
     }
 }

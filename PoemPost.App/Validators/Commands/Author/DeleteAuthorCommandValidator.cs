@@ -13,7 +13,9 @@ namespace PoemPost.App.Validators.Author
         public DeleteAuthorCommandValidator(IAuthorRepository authorRepository)
         {
             _authorRepository = authorRepository;
-            RuleFor(a => a.Id).MustAsync(ValidateAuthorOnExist).WithMessage("This author does not exist");   
+            RuleFor(a => a.Id)
+                .MustAsync(ValidateAuthorOnExist)
+                .WithMessage("This author does not exist");   
         }
 
         private async Task<bool> ValidateAuthorOnExist(int id, CancellationToken ct) => await _authorRepository.GetByIdAsync(id, trackChanges: true) != null;
