@@ -20,13 +20,14 @@ namespace PoemPost.Data.Repositories
 
         public async Task<PagedList<Post>> GetWithFiltersAsync(PostParameters postParameters, bool trackChanges)
         {
-            IQueryable<Post> postsEntities = !trackChanges ? RepositoryContext.Posts.Include(p => p.Author).Include(p => p.Comments).AsNoTracking() :
-                                                             RepositoryContext.Posts.Include(p => p.Author).Include(p => p.Comments);
+            IQueryable<Post> postsEntities = !trackChanges ?
+                RepositoryContext.Posts.Include(p => p.Author).Include(p => p.Comments).AsNoTracking() :
+                RepositoryContext.Posts.Include(p => p.Author).Include(p => p.Comments);
 
             var posts = await postsEntities.FilterByAuthors(postParameters.Authors)
                                            .FilterByDates(postParameters.FromDateTime, postParameters.ToDateTime)
                                            .Search(postParameters.SearchTerm)
-                                           .Sort(postParameters.OrderBy)
+                                           .Sort(postParameters.OrderByQueryStrings, postParameters.Order)
                                            .ToListAsync();
 
             return PagedList<Post>.ToPagedList(posts, postParameters.PageNumber, postParameters.PageSize);
