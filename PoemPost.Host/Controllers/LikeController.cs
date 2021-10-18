@@ -24,7 +24,7 @@ namespace PoemPost.Host.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]LikeForCreationDTO like)
         {
-            var result = await _mediator.Send(new CreateLikeWithValidateOnExistCommand()
+            var result = await _mediator.Send(new CreateLikeWithExistenceCheckCommand()
             {
                 Like = like
             });
