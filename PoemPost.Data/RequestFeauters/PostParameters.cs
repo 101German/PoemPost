@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PoemPost.Data.RequestFeauters
 {
-    public class PostParameters : RequestParameters
+    public class PostParameters : OrderParameters
     {
         public ICollection<string> Authors { get; set; }
         public string SearchTerm { get; set; }
