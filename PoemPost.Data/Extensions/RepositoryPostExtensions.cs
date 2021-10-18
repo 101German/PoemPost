@@ -1,4 +1,5 @@
 ﻿using PoemPost.Data.Models;
+using PoemPost.Data.RequestFeauters;
 using PoemPost.Data.RequestFeauters.Utility;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,12 @@ namespace PoemPost.Data.Extensions
             {
                 return posts;
             }
-           
+
             return posts.Where(p => authorsNames.Contains(p.Author.Name));
-            
+
         }
 
-        public static IQueryable<Post> FilterByDates(this IQueryable<Post> posts, DateTime startDate, DateTime finalDate) 
+        public static IQueryable<Post> FilterByDates(this IQueryable<Post> posts, DateTime startDate, DateTime finalDate)
             => posts.Where(p => p.CreationDate >= startDate && p.CreationDate <= finalDate);
 
         public static IQueryable<Post> Search(this IQueryable<Post> posts, string searchTerm)
@@ -30,26 +31,30 @@ namespace PoemPost.Data.Extensions
                 return posts;
             }
 
-            return posts.Where(p=>p.Title.Contains(searchTerm)||p.PoemText.Contains(searchTerm));
+            return posts.Where(p => p.Title.Contains(searchTerm) || p.PoemText.Contains(searchTerm));
 
         }
 
-        public static IQueryable<Post> Sort(this IQueryable<Post> posts,string orderByQueryString)
+        public static IQueryable<Post> Sort(this IQueryable<Post> posts, string[] orderByQueryStrings, OrderType order)
         {
-            if (string.IsNullOrWhiteSpace(orderByQueryString))
+
+            if (orderByQueryStrings == null || orderByQueryStrings.Length == 0)
             {
-                return posts.OrderBy(p => p.Title);
+
+                return order == OrderType.Ascending
+                    ? posts.OrderBy(p => p.Title)
+                    : posts.OrderByDescending(p => p.Title);
             }
 
-            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryString);
+            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryStrings);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
             {
                 return posts.OrderBy(p => p.Title);
             }
 
-            return posts.OrderBy(orderQuery);
-        } 
+            return posts.OrderBy($"{orderQuery} {order}");
+        }
 
     }
 }
