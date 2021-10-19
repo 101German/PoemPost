@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MassTransit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PoemPost.Host.Extensions
 {
@@ -11,5 +12,14 @@ namespace PoemPost.Host.Extensions
            .AllowAnyHeader()
            ));
 
+        public static void ConfigureMassTransit(this IServiceCollection services)
+        {
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq();
+            });
+
+            services.AddMassTransitHostedService();
+        }
     }
 }
