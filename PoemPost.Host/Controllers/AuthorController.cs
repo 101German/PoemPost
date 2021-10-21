@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using PoemPost.App.Command.Unsubscribe;
 using PoemPost.App.Commands;
+using PoemPost.App.Commands.Subscribe;
 using PoemPost.App.Queries;
 using PoemPost.Data.DTO;
 using System.Threading.Tasks;
@@ -74,5 +77,28 @@ namespace PoemPost.Host.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("Subscribe")]
+        public async Task<IActionResult> Subscribe(UserForSubscription user)
+        {
+            await _mediator.Send(new SubscribeOnAuthorCommand()
+            {
+                User = user
+            });
+
+            return NoContent();
+        }
+
+        [HttpPost("Unsubscribe")]
+        public async Task<IActionResult> Unsubscribe(UserForUnsubscription user)
+        {
+            await _mediator.Send(new UnsubscribeAuthorCommand()
+            {
+                User = user
+            });
+
+            return NoContent();
+        }
+
     }
 }
