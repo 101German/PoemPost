@@ -4,6 +4,7 @@
     {
         public string Title { get; set; }
         public string PoemText { get; set; }
+        public string AuthorName { get; set; }
         public int AuthorId { get; set; }
     }
 }
