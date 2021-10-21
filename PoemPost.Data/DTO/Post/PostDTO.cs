@@ -11,6 +11,7 @@ namespace PoemPost.Data.DTO
         public int LikesCount { get; set; }
         public DateTime CreationDate { get; set; }
         public string AuthorName { get; set; }
+        public int AuthorId { get; set; }
         public ICollection<CommentDTO> Comments { get; set; }
     }
 }
