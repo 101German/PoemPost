@@ -22,12 +22,13 @@ namespace PoemPost.App.Commands
         public async Task<PostDTO> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
             var postEntity = _mapper.Map<Post>(request.Post);
-
             _postRepository.Insert(postEntity);
             await _postRepository.SaveAsync();
 
-            return _mapper.Map<PostDTO>(postEntity);
+            var postForReturn = _mapper.Map<PostDTO>(postEntity);
+            postForReturn = _mapper.Map(request.Post, postForReturn);
 
+            return postForReturn; 
         }
     }
 }
