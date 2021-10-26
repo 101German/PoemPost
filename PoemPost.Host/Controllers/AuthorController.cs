@@ -86,10 +86,10 @@ namespace PoemPost.Host.Controllers
                 User = user
             });
 
-            return NoContent();
+            return Ok();
         }
 
-        [HttpPost("Unsubscription ")]
+        [HttpPost("Unsubscription")]
         public async Task<IActionResult> Unsubscribe(UserForUnsubscription user)
         {
             await _mediator.Send(new UnsubscribeAuthorCommand()
@@ -97,7 +97,7 @@ namespace PoemPost.Host.Controllers
                 User = user
             });
 
-            return NoContent();
+            return Ok();
         }
 
     }
