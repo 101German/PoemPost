@@ -20,6 +20,5 @@ namespace PoemPost.App.Commands.Create
         {
             await _publishEndpoint.Publish(response,cancellationToken);
         }
-
     }
 }
