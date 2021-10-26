@@ -78,7 +78,7 @@ namespace PoemPost.Host.Controllers
             return NoContent();
         }
 
-        [HttpPost("Subscribe")]
+        [HttpPost("Subscription")]
         public async Task<IActionResult> Subscribe(UserForSubscription user)
         {
             await _mediator.Send(new SubscribeOnAuthorCommand()
@@ -89,7 +89,7 @@ namespace PoemPost.Host.Controllers
             return NoContent();
         }
 
-        [HttpPost("Unsubscribe")]
+        [HttpPost("Unsubscription ")]
         public async Task<IActionResult> Unsubscribe(UserForUnsubscription user)
         {
             await _mediator.Send(new UnsubscribeAuthorCommand()
