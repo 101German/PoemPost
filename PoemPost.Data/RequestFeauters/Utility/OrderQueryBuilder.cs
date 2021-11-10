@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PoemPost.Data.Models;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -29,7 +30,6 @@ namespace PoemPost.Data.RequestFeauters.Utility
                     continue;
                 }
             
-
                 orderQueryBuilder.Append($"{objectProperty.Name},");
             }
 
