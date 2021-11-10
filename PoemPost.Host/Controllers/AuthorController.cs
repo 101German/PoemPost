@@ -38,7 +38,7 @@ namespace PoemPost.Host.Controllers
             var authorDTO = await _mediator.Send(new GetAuthorByIdQuery()
             {
                 Id = id,
-                TrackChanges = false
+                TrackChanges = true
             });
 
             return Ok(authorDTO);
