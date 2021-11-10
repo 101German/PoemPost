@@ -18,7 +18,6 @@ namespace PoemPost.Data.Extensions
             }
 
             return posts.Where(p => authorsNames.Contains(p.Author.Name));
-
         }
 
         public static IQueryable<Post> FilterByDates(this IQueryable<Post> posts, DateTime startDate, DateTime finalDate)
@@ -32,15 +31,12 @@ namespace PoemPost.Data.Extensions
             }
 
             return posts.Where(p => p.Title.Contains(searchTerm) || p.PoemText.Contains(searchTerm));
-
         }
 
         public static IQueryable<Post> Sort(this IQueryable<Post> posts, string[] orderByQueryStrings, OrderType order)
         {
-
             if (orderByQueryStrings == null || orderByQueryStrings.Length == 0)
             {
-
                 return order == OrderType.Ascending
                     ? posts.OrderBy(p => p.Title)
                     : posts.OrderByDescending(p => p.Title);
@@ -55,6 +51,14 @@ namespace PoemPost.Data.Extensions
 
             return posts.OrderBy($"{orderQuery} {order}");
         }
+
+        public static IQueryable<Post> FilterByAuthorId(this IQueryable<Post> posts, int authorId)
+        {  
+            if(authorId!=0)
+            return posts.Where(p => p.AuthorId == authorId);
+            return posts;
+        }
+       
 
     }
 }
