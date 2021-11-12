@@ -28,7 +28,7 @@ namespace PoemPost.Data.Repositories
                                            .FilterByAuthorId(postParameters.AuthorId)
                                            .FilterByDates(postParameters.FromDateTime, postParameters.ToDateTime)
                                            .Search(postParameters.SearchTerm)
-                                           .Sort(postParameters.OrderByQueryStrings, postParameters.Order)
+                                           .Sort(postParameters.OrderString)
                                            .ToListAsync();
 
             return PagedList<Post>.ToPagedList(posts, postParameters.PageNumber, postParameters.PageSize);
