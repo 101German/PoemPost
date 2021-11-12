@@ -33,23 +33,21 @@ namespace PoemPost.Data.Extensions
             return posts.Where(p => p.Title.Contains(searchTerm) || p.PoemText.Contains(searchTerm));
         }
 
-        public static IQueryable<Post> Sort(this IQueryable<Post> posts, string[] orderByQueryStrings, OrderType order)
+        public static IQueryable<Post> Sort(this IQueryable<Post> posts, string orderByQueryString)
         {
-            if (orderByQueryStrings == null || orderByQueryStrings.Length == 0)
+            if (string.IsNullOrWhiteSpace(orderByQueryString))
             {
-                return order == OrderType.Ascending
-                    ? posts.OrderBy(p => p.Title)
-                    : posts.OrderByDescending(p => p.Title);
+                return posts.OrderBy(e => e.Title);
             }
 
-            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryStrings);
+            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryString);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
             {
                 return posts.OrderBy(p => p.Title);
             }
 
-            return posts.OrderBy($"{orderQuery} {order}");
+            return posts.OrderBy(orderQuery);
         }
 
         public static IQueryable<Post> FilterByAuthorId(this IQueryable<Post> posts, int authorId)
