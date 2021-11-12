@@ -8,9 +8,9 @@ namespace PoemPost.Data.RequestFeauters.Utility
 {
     public static class OrderQueryBuilder
     {
-        public static string CreateOrderQuery<T>(string[] orderByQueryStrings)
+        public static string CreateOrderQuery<T>(string orderByQueryStrings)
         {
-            var orderParams = orderByQueryStrings;
+            var orderParams = orderByQueryStrings.Trim().Split(',');
             var propertyInfos = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var orderQueryBuilder = new StringBuilder();
 
@@ -21,7 +21,7 @@ namespace PoemPost.Data.RequestFeauters.Utility
                     continue;
                 }
 
-                var propertyFromQueryName = param;
+                var propertyFromQueryName = param.Split(" ")[0];
                 var objectProperty = propertyInfos.FirstOrDefault(pi =>
                 pi.Name.Equals(propertyFromQueryName, StringComparison.InvariantCultureIgnoreCase));
 
@@ -29,14 +29,13 @@ namespace PoemPost.Data.RequestFeauters.Utility
                 {
                     continue;
                 }
-            
-                orderQueryBuilder.Append($"{objectProperty.Name},");
+
+                var direction = param.EndsWith(" desc") ? "descending" : "ascending";
+                orderQueryBuilder.Append($"{objectProperty.Name} {direction},");
             }
 
             var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' '); 
-
             return orderQuery;
-
         }
     }
 }
