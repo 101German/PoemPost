@@ -1,5 +1,4 @@
 ﻿using PoemPost.Data.Models;
-using PoemPost.Data.RequestFeauters;
 using PoemPost.Data.RequestFeauters.Utility;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,6 @@ namespace PoemPost.Data.Extensions
             }
 
             return posts.Where(p => authorsNames.Contains(p.Author.Name));
-
         }
 
         public static IQueryable<Post> FilterByDates(this IQueryable<Post> posts, DateTime startDate, DateTime finalDate)
@@ -32,29 +30,37 @@ namespace PoemPost.Data.Extensions
             }
 
             return posts.Where(p => p.Title.Contains(searchTerm) || p.PoemText.Contains(searchTerm));
-
         }
 
-        public static IQueryable<Post> Sort(this IQueryable<Post> posts, string[] orderByQueryStrings, OrderType order)
+        public static IQueryable<Post> Sort(this IQueryable<Post> posts, string orderByQueryString)
         {
-
-            if (orderByQueryStrings == null || orderByQueryStrings.Length == 0)
+            if (string.IsNullOrWhiteSpace(orderByQueryString))
             {
-
-                return order == OrderType.Ascending
-                    ? posts.OrderBy(p => p.Title)
-                    : posts.OrderByDescending(p => p.Title);
+                return posts.OrderBy(e => e.Title);
             }
 
-            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryStrings);
+            if (orderByQueryString.Contains("likes"))
+            {
+                return orderByQueryString.EndsWith("desc") ? posts.OrderByDescending(p => p.Likes.Count) : posts.OrderBy(p => p.Likes.Count);
+            }
+
+            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryString);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
             {
                 return posts.OrderBy(p => p.Title);
             }
 
-            return posts.OrderBy($"{orderQuery} {order}");
+            return posts.OrderBy(orderQuery);
         }
+
+        public static IQueryable<Post> FilterByAuthorId(this IQueryable<Post> posts, int authorId)
+        {
+            if (authorId != 0)
+                return posts.Where(p => p.AuthorId == authorId);
+            return posts;
+        }
+
 
     }
 }

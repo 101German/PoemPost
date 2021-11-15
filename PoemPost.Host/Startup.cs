@@ -57,7 +57,9 @@ namespace PoemPost.Host
             app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .WithExposedHeaders("X-Pagination"));
+                
 
             app.UseEndpoints(endpoints =>
             {

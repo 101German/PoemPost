@@ -10,6 +10,7 @@ namespace PoemPost.Host.Extensions
            .AllowAnyOrigin()
            .AllowAnyMethod()
            .AllowAnyHeader()
+           .WithExposedHeaders("X-Pagination")
            ));
 
         public static void ConfigureMassTransit(this IServiceCollection services)

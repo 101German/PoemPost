@@ -60,6 +60,7 @@ namespace PoemPost.Host.Controllers
             });
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(postsEntities.MetaData));
+         
 
             var postsDTO = _mapper.Map<ICollection<PostDTO>>(postsEntities);
 

@@ -25,9 +25,10 @@ namespace PoemPost.Data.Repositories
                 RepositoryContext.Posts.Include(p => p.Author).Include(p => p.Comments);
 
             var posts = await postsEntities.FilterByAuthors(postParameters.Authors)
+                                           .FilterByAuthorId(postParameters.AuthorId)
                                            .FilterByDates(postParameters.FromDateTime, postParameters.ToDateTime)
                                            .Search(postParameters.SearchTerm)
-                                           .Sort(postParameters.OrderByQueryStrings, postParameters.Order)
+                                           .Sort(postParameters.OrderString)
                                            .ToListAsync();
 
             return PagedList<Post>.ToPagedList(posts, postParameters.PageNumber, postParameters.PageSize);
