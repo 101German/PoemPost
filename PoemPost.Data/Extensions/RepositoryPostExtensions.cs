@@ -1,5 +1,4 @@
 ﻿using PoemPost.Data.Models;
-using PoemPost.Data.RequestFeauters;
 using PoemPost.Data.RequestFeauters.Utility;
 using System;
 using System.Collections.Generic;
@@ -40,6 +39,11 @@ namespace PoemPost.Data.Extensions
                 return posts.OrderBy(e => e.Title);
             }
 
+            if (orderByQueryString.Contains("likes"))
+            {
+                return orderByQueryString.EndsWith("desc") ? posts.OrderByDescending(p => p.Likes.Count) : posts.OrderBy(p => p.Likes.Count);
+            }
+
             var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryString);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
@@ -51,12 +55,12 @@ namespace PoemPost.Data.Extensions
         }
 
         public static IQueryable<Post> FilterByAuthorId(this IQueryable<Post> posts, int authorId)
-        {  
-            if(authorId!=0)
-            return posts.Where(p => p.AuthorId == authorId);
+        {
+            if (authorId != 0)
+                return posts.Where(p => p.AuthorId == authorId);
             return posts;
         }
-       
+
 
     }
 }
