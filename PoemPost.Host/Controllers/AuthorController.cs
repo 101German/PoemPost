@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Newtonsoft.Json;
 using PoemPost.App.Command.Unsubscribe;
 using PoemPost.App.Commands;
 using PoemPost.App.Commands.Subscribe;
 using PoemPost.App.Queries;
 using PoemPost.Data.DTO;
+using PoemPost.Data.RequestFeauters;
 using System.Threading.Tasks;
 
 namespace PoemPost.Host.Controllers
@@ -22,9 +24,9 @@ namespace PoemPost.Host.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]AuthorForCreationDTO author)
+        public async Task<IActionResult> Create([FromBody] AuthorForCreationDTO author)
         {
-            var authorDTO = await  _mediator.Send(new CreateAuthorCommand()
+            var authorDTO = await _mediator.Send(new CreateAuthorCommand()
             {
                 Author = author
             });
@@ -45,14 +47,17 @@ namespace PoemPost.Host.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] AuthorParameters authorParameters)
         {
-            var authorDTO = await _mediator.Send(new GetAuthorsQuery()
+            var authorsDTO = await _mediator.Send(new GetAuthorsQuery()
             {
-                TrackChanges = false
+                AuthorParameters = authorParameters,
+                TrackChanges = true
             });
 
-            return Ok(authorDTO);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(authorsDTO.MetaData));
+
+            return Ok(authorsDTO.Items);
         }
 
         [HttpDelete]
@@ -67,7 +72,7 @@ namespace PoemPost.Host.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(int id,[FromBody]AuthorForUpdateDTO author)
+        public async Task<IActionResult> Update(int id, [FromBody] AuthorForUpdateDTO author)
         {
             await _mediator.Send(new UpdateAuthorCommand()
             {
@@ -77,28 +82,5 @@ namespace PoemPost.Host.Controllers
 
             return NoContent();
         }
-
-        [HttpPost("Subscription")]
-        public async Task<IActionResult> Subscribe(UserForSubscription user)
-        {
-            await _mediator.Send(new SubscribeOnAuthorCommand()
-            {
-                User = user
-            });
-
-            return Ok();
-        }
-
-        [HttpPost("Unsubscription")]
-        public async Task<IActionResult> Unsubscribe(UserForUnsubscription user)
-        {
-            await _mediator.Send(new UnsubscribeAuthorCommand()
-            {
-                User = user
-            });
-
-            return Ok();
-        }
-
     }
 }

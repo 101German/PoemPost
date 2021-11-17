@@ -36,12 +36,21 @@ namespace PoemPost.Data.Extensions
         {
             if (string.IsNullOrWhiteSpace(orderByQueryString))
             {
-                return posts.OrderBy(e => e.Title);
+                return posts.OrderBy(p => p.Title);
             }
 
             if (orderByQueryString.Contains("likes"))
             {
-                return orderByQueryString.EndsWith("desc") ? posts.OrderByDescending(p => p.Likes.Count) : posts.OrderBy(p => p.Likes.Count);
+                return orderByQueryString.EndsWith("desc") ?
+                    posts.OrderByDescending(p => p.Likes.Count) :
+                    posts.OrderBy(p => p.Likes.Count);
+            }
+
+            if (orderByQueryString.Contains("author"))
+            {
+                return orderByQueryString.EndsWith("desc") ?
+                    posts.OrderByDescending(p => p.Author.Name) :
+                    posts.OrderBy(p => p.Author.Name);
             }
 
             var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryString);

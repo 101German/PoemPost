@@ -8,7 +8,6 @@ using PoemPost.App.Queries;
 using PoemPost.App.Queries.Post;
 using PoemPost.Data.DTO;
 using PoemPost.Data.RequestFeauters;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PoemPost.Host.Controllers
@@ -18,12 +17,10 @@ namespace PoemPost.Host.Controllers
     public class PostController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper; 
 
-        public PostController(IMediator mediator,IMapper mapper)
+        public PostController(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         [HttpGet("{id}",Name ="GetById")]
@@ -53,19 +50,15 @@ namespace PoemPost.Host.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]PostParameters postParameters)
         {
-            var postsEntities = await _mediator.Send(new GetFilteringPostsQuery()
+            var postsDTO = await _mediator.Send(new GetFilteringPostsQuery()
             {
                 PostParameters = postParameters,
                 TrackChanges = true
             });
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(postsEntities.MetaData));
-         
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(postsDTO.MetaData));
 
-            var postsDTO = _mapper.Map<ICollection<PostDTO>>(postsEntities);
-
-            return Ok(postsDTO);
-
+            return Ok(postsDTO.Items);
         }
 
         [HttpDelete("{id}")]

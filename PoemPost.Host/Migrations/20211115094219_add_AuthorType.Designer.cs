@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PoemPost.Data;
 
 namespace PoemPost.Host.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20211115094219_add_AuthorType")]
+    partial class add_AuthorType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,29 +120,6 @@ namespace PoemPost.Host.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("PoemPost.Data.Models.Subscription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Subscriptions");
-                });
-
             modelBuilder.Entity("PoemPost.Data.Models.Comment", b =>
                 {
                     b.HasOne("PoemPost.Data.Models.Author", "Author")
@@ -190,17 +169,6 @@ namespace PoemPost.Host.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("PoemPost.Data.Models.Subscription", b =>
-                {
-                    b.HasOne("PoemPost.Data.Models.Author", "Author")
-                        .WithMany("Subscriptions")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-                });
-
             modelBuilder.Entity("PoemPost.Data.Models.Author", b =>
                 {
                     b.Navigation("Comments");
@@ -208,8 +176,6 @@ namespace PoemPost.Host.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("Posts");
-
-                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("PoemPost.Data.Models.Post", b =>
