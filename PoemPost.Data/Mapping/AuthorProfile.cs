@@ -13,7 +13,9 @@ namespace PoemPost.Data.Mapping
 
             CreateMap<Author, AuthorDTO>()
                 .ForMember(a=>a.PostsCount,opt=>opt
-                .MapFrom(a=>a.Posts.Count));
+                .MapFrom(a=>a.Posts.Count))
+                .ForMember(a=>a.SubscriptionsCount,opt=>opt
+                .MapFrom(a=>a.Subscriptions.Count));
             CreateMap<AuthorForUpdateDTO, Author>();
 
             CreateMap<PagedList<Author>, PagedList<AuthorDTO>>()

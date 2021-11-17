@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PoemPost.Data.DTO;
 using PoemPost.Data.Models;
+using PoemPost.Data.RequestFeauters;
 using System;
 
 namespace PoemPost.Data.Mapping
@@ -29,6 +30,10 @@ namespace PoemPost.Data.Mapping
                 .ForMember(p => p.Comments, opt => opt.Ignore())
                 .ForMember(p => p.CreationDate, opt => opt.Ignore())
                 .ForMember(p => p.LikesCount, opt => opt.Ignore());
+            CreateMap<PagedList<Post>, PagedList<PostDTO>>()
+                .ForMember(p => p.MetaData, opt => opt
+                .MapFrom(p => p.MetaData))
+                .ForMember(p=>p.Items,opt=>opt.MapFrom(p=>p.Items));
                 
         }
     }
