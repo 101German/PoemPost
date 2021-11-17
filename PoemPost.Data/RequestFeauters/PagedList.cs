@@ -6,9 +6,6 @@ namespace PoemPost.Data.RequestFeauters
 {
     public class PagedList<T> : List<T>
     {
-        public MetaData MetaData { get; set; }
-        public List<T> Items { get; set; }
-
         public PagedList()
         {
 
@@ -25,6 +22,8 @@ namespace PoemPost.Data.RequestFeauters
 
             Items = items;
         }
+        public MetaData MetaData { get; set; }
+        public List<T> Items { get; set; }
 
         public static PagedList<T> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
         {
