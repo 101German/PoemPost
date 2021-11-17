@@ -49,8 +49,6 @@ namespace PoemPost.Data.Extensions
             services.Scan(scan => scan.FromCallingAssembly()
             .AddClasses(classes => classes.AssignableTo(typeof(IBaseRepository<>))).AsImplementedInterfaces().WithScopedLifetime());
             services.AddScoped<ILikeRepository, LikeRepository>();
-       
-
         }
 
         public static void ConfigureAutoMapper(this IServiceCollection services)
@@ -61,6 +59,7 @@ namespace PoemPost.Data.Extensions
                 mc.AddProfile(new PostProfile());
                 mc.AddProfile(new LikeProfile());
                 mc.AddProfile(new CommentProfile());
+                mc.AddProfile(new SubscriptionProfile());
             });
 
             IMapper mapper = mapConfig.CreateMapper();
