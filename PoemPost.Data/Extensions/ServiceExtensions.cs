@@ -60,6 +60,7 @@ namespace PoemPost.Data.Extensions
                 mc.AddProfile(new LikeProfile());
                 mc.AddProfile(new CommentProfile());
                 mc.AddProfile(new SubscriptionProfile());
+                mc.AddProfile(new CategoryProfile());
             });
 
             IMapper mapper = mapConfig.CreateMapper();

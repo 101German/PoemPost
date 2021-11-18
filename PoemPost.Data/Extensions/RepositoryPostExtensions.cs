@@ -66,10 +66,19 @@ namespace PoemPost.Data.Extensions
         public static IQueryable<Post> FilterByAuthorId(this IQueryable<Post> posts, int authorId)
         {
             if (authorId != 0)
+            {
                 return posts.Where(p => p.AuthorId == authorId);
+            }
             return posts;
         }
 
-
+        public static IQueryable<Post> FilterByCategoryId(this IQueryable<Post> posts, int categoryId)
+        {
+            if (categoryId != 0)
+            {
+                return posts.Where(p => p.CategoryId == categoryId);
+            }
+            return posts;
+        }
     }
 }
