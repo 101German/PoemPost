@@ -27,6 +27,7 @@ namespace PoemPost.Data.Repositories
             var posts = await postsEntities.FilterByAuthors(postParameters.Authors)
                                            .FilterByAuthorId(postParameters.AuthorId)
                                            .FilterByDates(postParameters.FromDateTime, postParameters.ToDateTime)
+                                           .FilterByCategoryId(postParameters.CategoryId)
                                            .Search(postParameters.SearchTerm)
                                            .Sort(postParameters.OrderString)
                                            .ToListAsync();
