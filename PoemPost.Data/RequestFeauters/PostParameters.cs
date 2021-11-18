@@ -8,6 +8,7 @@ namespace PoemPost.Data.RequestFeauters
         public ICollection<string> Authors { get; set; }
         public string SearchTerm { get; set; }
         public int AuthorId { get; set; }
+        public int CategoryId { get; set; }
         public DateTime FromDateTime { get; set; } = DateTime.MinValue;
         public DateTime ToDateTime { get; set; } = DateTime.MaxValue;
     }
