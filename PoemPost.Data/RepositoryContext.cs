@@ -11,7 +11,6 @@ namespace PoemPost.Data
 {
     public class RepositoryContext : DbContext
     {
-
         public RepositoryContext(DbContextOptions options) : base(options)
         {
 
@@ -22,6 +21,7 @@ namespace PoemPost.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,20 +34,27 @@ namespace PoemPost.Data
 
             builder.RegiesterSoftDeleteQueryFilter(excludedTypes);
 
-            builder.Entity<Like>().HasKey(l => new { l.AuthorId, l.PostId });
-            builder.Entity<Comment>().HasOne(c => c.Post).WithMany(p => p.Comments).HasForeignKey(c => c.PostId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Comment>().HasOne(c => c.Author).WithMany(a => a.Comments).HasForeignKey(c => c.AuthorId).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Like>()
+                .HasKey(l => new { l.AuthorId, l.PostId });
 
+            builder.Entity<Comment>()
+                .HasOne(c => c.Post)
+                .WithMany(p => p.Comments)
+                .HasForeignKey(c => c.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Comment>()
+                .HasOne(c => c.Author)
+                .WithMany(a => a.Comments)
+                .HasForeignKey(c => c.AuthorId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
                 .UseLazyLoadingProxies();
-                
         }
-
 
         public override int SaveChanges()
         {
@@ -81,7 +88,5 @@ namespace PoemPost.Data
                 }
             }
         }
-
-
     }
 }
