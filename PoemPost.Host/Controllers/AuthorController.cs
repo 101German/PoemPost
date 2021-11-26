@@ -1,13 +1,13 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Newtonsoft.Json;
-using PoemPost.App.Command.Unsubscribe;
 using PoemPost.App.Commands;
-using PoemPost.App.Commands.Subscribe;
 using PoemPost.App.Queries;
 using PoemPost.Data.DTO;
 using PoemPost.Data.RequestFeauters;
+using PoemPost.Data.UserContext;
+using System;
 using System.Threading.Tasks;
 
 namespace PoemPost.Host.Controllers
@@ -17,10 +17,12 @@ namespace PoemPost.Host.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IUserContext _userContext;
 
-        public AuthorController(IMediator mediator)
+        public AuthorController(IMediator mediator, IUserContext userContext)
         {
             _mediator = mediator;
+            _userContext = userContext;
         }
 
         [HttpPost]
@@ -44,6 +46,17 @@ namespace PoemPost.Host.Controllers
             });
 
             return Ok(authorDTO);
+        }
+
+        [HttpGet("Users/{userId}")]
+        public async Task<IActionResult> Get(Guid userId)
+        {
+            var authorId = await _mediator.Send(new GetAuthorIdByUserIdQuery()
+            {
+                UserId = userId
+            });
+
+            return Ok(authorId);
         }
 
         [HttpGet]

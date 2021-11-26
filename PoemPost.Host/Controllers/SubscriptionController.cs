@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PoemPost.App.Commands;
 using PoemPost.App.Commands.Delete;
+using PoemPost.App.Queries;
 using PoemPost.App.Queries.Subscription;
 using PoemPost.Data.DTO.Subscription;
 using PoemPost.Data.RequestFeauters;
+using System;
 using System.Threading.Tasks;
 
 namespace PoemPost.Host.Controllers
@@ -30,9 +32,20 @@ namespace PoemPost.Host.Controllers
                 TrackChanges = true
             });
 
-           Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(subscriptionsDTO.MetaData));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(subscriptionsDTO.MetaData));
 
             return Ok(subscriptionsDTO.Items);
+        }
+        [HttpGet("checkExist")]
+        public async Task<IActionResult> Get(int authorId, Guid userId)
+        {
+            var subscriptionIsExist = await  _mediator.Send(new CheckExistSubscriptionQuery()
+            {
+                UserId = userId,
+                AuthorId = authorId
+            });
+
+            return Ok(subscriptionIsExist);
         }
 
         [HttpPost]
