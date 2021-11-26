@@ -24,7 +24,8 @@ namespace PoemPost.App.Queries.Subscription
         }
         public async Task<PagedList<SubscriptionDTO>> Handle(GetSubcriptionsQuery request, CancellationToken cancellationToken)
         {
-            var subscriptionEntities = await _subscriptionRepository.GetWithFiltersAsync(request.SubscriptionParameters, request.TrackChanges);
+            var subscriptionEntities = await _subscriptionRepository
+                .GetWithFiltersAsync(request.SubscriptionParameters, request.TrackChanges);
 
             return _mapper.Map<PagedList<SubscriptionDTO>>(subscriptionEntities);
         }
