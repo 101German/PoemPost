@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PoemPost.Data.Models
 {
@@ -10,10 +11,10 @@ namespace PoemPost.Data.Models
     public class Author : BaseEntity
     {
         public string Name { get; set; }
+        public Guid UserId { get; set; } 
         public AuthorType AuthorType { get; set; }
         public virtual ICollection<Subscription> Subscriptions { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
