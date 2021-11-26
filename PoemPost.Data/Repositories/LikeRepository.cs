@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PoemPost.Data.Interfaces;
 using PoemPost.Data.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace PoemPost.Data.Repositories
@@ -16,9 +17,9 @@ namespace PoemPost.Data.Repositories
 
         public void Add(Like likeEntity) => _context.Likes.Add(likeEntity);
 
-        public async Task<Like> GetAsync(int postId, int authorId)
+        public async Task<Like> GetAsync(int postId, Guid userId)
         {
-            return await _context.Likes.SingleOrDefaultAsync(l => l.PostId == postId && l.AuthorId == authorId);
+            return await _context.Likes.SingleOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
         }
 
         public async Task SaveAsync() => await _context.SaveChangesAsync();

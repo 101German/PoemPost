@@ -3,6 +3,7 @@ using PoemPost.Data.Extensions;
 using PoemPost.Data.Interfaces;
 using PoemPost.Data.Models;
 using PoemPost.Data.RequestFeauters;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +30,13 @@ namespace PoemPost.Data.Repositories
 
             return PagedList<Author>
                 .ToPagedList(authors, authorParameters.PageNumber, authorParameters.PageSize);
+        }
+
+        public async Task<Author> GetAuthorByUserId(Guid userId)
+        {
+            var author = await RepositoryContext.Authors.Where(a => a.UserId == userId).FirstOrDefaultAsync();
+
+            return author;
         }
     }
 }
