@@ -8,6 +8,7 @@ namespace PoemPost.Data.DTO
         public int Id { get; set; }
         public string Title { get; set; }
         public string PoemText { get; set; }
+        public int CategoryId { get; set; }
         public int LikesCount { get; set; }
         public DateTime CreationDate { get; set; }
         public string AuthorName { get; set; }
