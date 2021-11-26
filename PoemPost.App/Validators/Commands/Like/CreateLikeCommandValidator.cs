@@ -22,16 +22,9 @@ namespace PoemPost.App.Validators
             RuleFor(l => l.Like.PostId)
                 .MustAsync(ValidatePostOnExistAsync)
                 .WithMessage("This post does not exist");
-
-            RuleFor(l => l.Like.AuthorId)
-                .MustAsync(ValidateAuthorOnExistAsync)
-                .WithMessage("This author does not exist");
         }
 
-        private async Task<bool> ValidateAuthorOnExistAsync(int id, CancellationToken ct) =>
-            await _authorRepository.GetByIdAsync(id, trackChanges: true) != null;
         private async Task<bool> ValidatePostOnExistAsync(int id, CancellationToken ct) =>
             await _postRepository.GetByIdAsync(id, trackChanges: true) != null;
-
     }
 }

@@ -17,10 +17,6 @@ namespace PoemPost.App.Validators.Post
             RuleFor(p => p.Post)
                 .NotNull()
                 .WithMessage("Parameter Post is null");
-
-            RuleFor(p => p.Post.AuthorId)
-                .MustAsync( AuthorExistAsync)
-                .WithMessage("This author does'not exist");    
         }
 
         private async Task<bool> AuthorExistAsync(int id, CancellationToken ct) =>
