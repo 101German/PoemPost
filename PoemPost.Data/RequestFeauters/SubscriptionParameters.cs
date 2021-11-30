@@ -1,7 +1,9 @@
-﻿namespace PoemPost.Data.RequestFeauters
+﻿using System;
+
+namespace PoemPost.Data.RequestFeauters
 {
     public class SubscriptionParameters : OrderParameters
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

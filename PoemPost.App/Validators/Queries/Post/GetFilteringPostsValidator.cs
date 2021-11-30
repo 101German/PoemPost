@@ -11,6 +11,5 @@ namespace PoemPost.App.Validators.Queries.Post
                 .NotNull()
                 .WithMessage("Post parameters is null");
         }
-        
     }
 }

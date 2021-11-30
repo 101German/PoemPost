@@ -35,19 +35,13 @@ namespace PoemPost.Data
             builder.RegiesterSoftDeleteQueryFilter(excludedTypes);
 
             builder.Entity<Like>()
-                .HasKey(l => new { l.AuthorId, l.PostId });
+                .HasKey(l => new { l.UserId, l.PostId });
 
             builder.Entity<Comment>()
                 .HasOne(c => c.Post)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Comment>()
-                .HasOne(c => c.Author)
-                .WithMany(a => a.Comments)
-                .HasForeignKey(c => c.AuthorId)
-                .OnDelete(DeleteBehavior.NoAction);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

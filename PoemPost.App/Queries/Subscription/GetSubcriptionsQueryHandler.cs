@@ -3,10 +3,6 @@ using MediatR;
 using PoemPost.Data.DTO.Subscription;
 using PoemPost.Data.Interfaces;
 using PoemPost.Data.RequestFeauters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +20,8 @@ namespace PoemPost.App.Queries.Subscription
         }
         public async Task<PagedList<SubscriptionDTO>> Handle(GetSubcriptionsQuery request, CancellationToken cancellationToken)
         {
-            var subscriptionEntities = await _subscriptionRepository.GetWithFiltersAsync(request.SubscriptionParameters, request.TrackChanges);
+            var subscriptionEntities = await _subscriptionRepository
+                .GetWithFiltersAsync(request.SubscriptionParameters, request.TrackChanges);
 
             return _mapper.Map<PagedList<SubscriptionDTO>>(subscriptionEntities);
         }

@@ -1,8 +1,10 @@
-﻿namespace PoemPost.Data.DTO.Like
+﻿using System;
+
+namespace PoemPost.Data.DTO.Like
 {
     public class LikeForCreationDTO
     {
-        public int AuthorId { get; set; }
+        public Guid UserId { get; set; }
         public int PostId { get; set; }
     }
 }
